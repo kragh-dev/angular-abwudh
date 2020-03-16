@@ -1,0 +1,48 @@
+<ng-template *ngIf="isAdmin; then adminList; else userList;"></ng-template>
+<ng-template #userList>
+    <div class="card item-card">
+        <img class="card-img-top" [src]="movie.imageUrl?movie.imageUrl:'assets/movie-image-not-found.jpg'">
+        <div class="container-fluid px-3 pt-3">
+            <b class="card-title"><!-- <a [routerLink]="['/productDetail',movie.id]" [queryParams]="{name:foodItem.name,price:foodItem.price,category:foodItem.category,active:foodItem.active,imageUrl:foodItem.imageUrl,freeDelivery:foodItem.freeDelivery}"> -->{{movie.title}}<!-- </a> --></b>
+            <b class="card-title float-right item-price">{{movie.boxOffice | currency:'INR'}}</b>
+        </div>
+        <div class="container-fluid px-3 pb-3">
+            <small class="card-text"><span [className]="movie.active?'badge badge-success item-status':'badge badge-danger item-status'">{{movie.active?'Active':'Inactive'}}</span>{{movie.genre}}</small>
+            <small *ngIf='movie.hasTeaser' class="card-text float-right"><a target="_blank" style="text-decoration: none;" class="free-delivery" href={{movie.teaserUrl}}><i class="material-icons free-del-truck">play_circle_filled</i><span class="badge free-del-badge">TEASER</span></a></small>
+        </div>
+        <div *ngIf="this.favService.movieAdded && this.favService.movieToBeAdded.id == movie.id" class=" mx-3 alert alert-success">
+            <small>Movie added successfully to favorites</small>
+        </div>
+        <div *ngIf="this.favService.movieNotAdded && this.favService.movieToBeAdded.id == movie.id" class=" mx-3 alert alert-danger">
+            <small>Movie already in favorites</small>
+        </div>
+        <div class="container-fluid px-3 pb-3 add-to-cart-box">
+            <div class="container date-of-launch-container">
+                <small class="cart-text date-of-launch"><i class="material-icons date-of-launch-icon">access_time</i>Launch</small>
+                <small class="cart-text">{{movie.dateOfLaunch | date:'shortDate'}}</small>
+            </div>
+            <button type="button" (click)="onAddToFav(movie.id)" class="btn add-to-cart float-right"><i class="material-icons add-to-cart-icon">favorite_border</i>  Add to Favorites</button>
+        </div>      
+    </div>    
+</ng-template>
+<ng-template #adminList>
+    <div class="card">
+        <img class="card-img-top" [src]="movie.imageUrl?movie.imageUrl:'assets/movie-image-not-found.jpg'">
+        <div class="container-fluid px-3 pt-3">
+            <b class="card-title"><!-- <a [routerLink]="['/productDetail',foodItem.id]" [queryParams]="{name:foodItem.name,price:foodItem.price,category:foodItem.category,active:foodItem.active,imageUrl:foodItem.imageUrl,freeDelivery:foodItem.freeDelivery}"> -->{{movie.title}}<!-- </a> --></b>
+            <b class="card-title float-right item-price">{{movie.boxOffice | currency:'INR'}}</b>
+        </div>
+        <div class="container-fluid px-3 pb-3">
+            <small class="card-text"><span [className]="movie.active?'badge badge-success item-status':'badge badge-danger item-status'">{{movie.active?'Active':'Inactive'}}</span>{{movie.genre}}</small>
+            <small *ngIf='movie.hasTeaser' class="card-text free-delivery float-right"><i class="material-icons free-del-truck">play_circle_filled</i><span class="badge free-del-badge">TEASER</span></small>
+        </div>
+        <div class="container px-3" id="item1"></div>
+        <div class="container-fluid px-3 pb-3 add-to-cart-box">
+            <div class="container date-of-launch-container">
+                <small class="cart-text date-of-launch"><i class="material-icons date-of-launch-icon">access_time</i>Launch</small>
+                <small class="cart-text">{{movie.dateOfLaunch | date:'shortDate'}}</small>
+            </div>
+            <button type="button" (click)="onEdit(movie.id)" class="btn add-to-cart float-right"><i class="material-icons add-to-cart-icon">create</i>  Edit</button>
+        </div>      
+    </div>
+</ng-template>
