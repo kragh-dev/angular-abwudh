@@ -7,7 +7,6 @@ import { FavoritesService } from '../../site/favorites/favorites.service';
 @Component({
   selector: 'app-movie-info',
   templateUrl: './movie-info.component.html',
-  styleUrls: ['./movie-info.component.css']
 })
 export class MovieInfoComponent implements OnInit {
   @Input('theMovie') movie:IMovie;

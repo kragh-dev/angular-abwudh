@@ -8,7 +8,6 @@ import { DatePipe } from '@angular/common';
 @Component({
   selector: 'app-movie-edit',
   templateUrl: './movie-edit.component.html',
-  styleUrls: ['./movie-edit.component.css']
 })
 export class MovieEditComponent implements OnInit {
   movie: IMovie
